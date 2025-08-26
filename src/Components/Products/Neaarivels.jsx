@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 const Neaarivels = () => {
   const scrollReff = useRef(null);
 
-  const [isDragging,setIsdragging] = useState(false);
-  const [startX,setStartX] = useState(0);
-  const [scrollLeft,setScrollLeft] = useState(false);
-  const [scrollRight,setScrollRight] = useState(true);
-
+  // const [isDragging,setIsdragging] = useState(false);
+  // const [startX,setStartX] = useState(0);
+  // const [scrollleft,setScrolleft] = useState(false)
+  const [cancrollLeft,setcanScrollLeft] = useState(false);
+  const [canscrollRight,cansetScrollRight] = useState(true);
 
 
   const newArrival = [
@@ -94,19 +94,31 @@ const Neaarivels = () => {
     },
   ];
 
+const ScroLL = (directionm)=> {
+  const scroAmount = directionm === "left" ? -300 : 300;
+  let hh = scrollReff.current.scrollBy({left:scroAmount, behaviour:"smooth"})
+console.log("aeroorei",hh);
+}
 
 const updateButton = ()=>{
   const container = scrollReff.current;
-  console.log({
-    scrollLeft:container.scrollLeft,
-    cllintWidth:container.clientWidth,
-  });  
+  if(container){
+    const leftScroll = container.scrollLeft;
+    const rightScroll = container.scrollWidth > leftScroll + container.clientWidth;
+    setcanScrollLeft(leftScroll > 0);
+    cansetScrollRight(rightScroll)
+  }
+  // console.log({
+  //   scrollLeft:container.scrollLeft,
+  //   cllintWidth:container.clientWidth,
+  // });  
 }
 
   useEffect(()=>{
     const container = scrollReff.current;
     if(container){
       container.addEventListener("scroll",updateButton);
+      // updateButton();
     }
   })
   return (
@@ -119,10 +131,10 @@ const updateButton = ()=>{
         </p>
 
         <div className="absolute right-0 bottom-[-30px] flex space-x-2">
-          <button className="p-2 rounded border bg-white text-black">
+          <button onClick={()=> ScroLL("left")} disabled={!setcanScrollLeft} className={`p-2 rounded border ${cancrollLeft ? "bg-white text-black" : "bg-gray-200 text-gray-800 cursor-not-allowed"}`}>
             <FiChevronLeft className="text-2xl" />
           </button>
-          <button className="p-2 rounded border bg-white text-black">
+          <button onClick={()=> ScroLL("right")} disabled={!cansetScrollRight} className={`p-2 rounded border ${canscrollRight ? "bg-white text-black" : "bg-gray-200 text-gray-800 cursor-not-allowed"}`}>
             <FiChevronRight className="text-2xl" />
           </button>
         </div>
@@ -135,7 +147,7 @@ const updateButton = ()=>{
               key={product._id}
               className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative"
             >
-              <img
+              <img 
                 src={product.images[0]?.url}
                 alt={product.images[0]?.altText || product.name}
                 className="w-full h-[500px] object-cover rounded"
