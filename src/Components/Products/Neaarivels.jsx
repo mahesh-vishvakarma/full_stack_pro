@@ -7,12 +7,10 @@ import { Link } from "react-router-dom";
 const Neaarivels = () => {
   const scrollReff = useRef(null);
 
-  const [isDragging,setIsdragging] = useState(false);
-  const [startX,setStartX] = useState(0);
-  const [scrollLeft,setScrollLeft] = useState(false);
-  const [scrollRight,setScrollRight] = useState(true);
-
-
+  const [isDragging, setIsdragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(false);
+  const [scrollRight, setScrollRight] = useState(true);
 
   const newArrival = [
     {
@@ -94,21 +92,41 @@ const Neaarivels = () => {
     },
   ];
 
+  const isMouseDoun = (e) => {
+    setStartX(e.pageX - scrollReff.current.offsetLeft);
+    setIsdragging(true);
+    // console.log(startX,"start x");
+    setScrollLeft(scrollReff.current.offsetLeft);
+  };
 
-const updateButton = ()=>{
-  const container = scrollReff.current;
-  console.log({
-    scrollLeft:container.scrollLeft,
-    cllintWidth:container.clientWidth,
-  });  
-}
+  const isMouseIsUpMove = (e) => {
+    if(!isDragging) return;
+    const x = e.startX - scrollReff.current.offsetLeft;
+    const walk = x - startX;
+    // scrollReff.current.offsetLeft = scrollLeft-walk;
+  };
 
-  useEffect(()=>{
+  const isMouLeaveOrUp = () => {
+    setIsdragging(false)
+  };
+
+
+  const updateButton = () => {
     const container = scrollReff.current;
-    if(container){
-      container.addEventListener("scroll",updateButton);
+    // console.log({
+    //   scrollLeft: container.scrollLeft,
+    //   cllintWidth: container.clientWidth,
+    // });
+  };
+
+  useEffect(() => {
+    const container = scrollReff.current;
+    if (container) {
+      container.addEventListener("scroll", updateButton);
+      updateButton();
+      return ()=> container.removeEventListener("scroll",updateButton)
     }
-  })
+  });
   return (
     <section>
       <div className="container mx-auto text-center mb-10 relative">
@@ -128,7 +146,14 @@ const updateButton = ()=>{
         </div>
       </div>
 
-      <div ref={scrollReff} className="container mx-auto overflow-x-scroll flex space-x-6 relative">
+      <div
+        onMouseDown={isMouseDoun}
+        onMouseLeave={isMouLeaveOrUp}
+        onMouseMove={isMouseIsUpMove}
+        onMouseUp={isMouLeaveOrUp}
+        ref={scrollReff}
+        className="container mx-auto overflow-x-scroll flex space-x-6 relative"
+      >
         {newArrival.map((product) => {
           return (
             <div
@@ -138,7 +163,8 @@ const updateButton = ()=>{
               <img
                 src={product.images[0]?.url}
                 alt={product.images[0]?.altText || product.name}
-                className="w-full h-[500px] object-cover rounded"
+                draggable="false"
+                className={`w-full h-[500px] object-cover rounded ${isDragging ? "cursor-grabbing" : "cursor-grab"} `}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 backdrop-blur-md text-white p-4 rounded-b-lg">
                 <Link to={`/product/${product._id}`}>
