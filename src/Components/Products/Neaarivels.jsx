@@ -7,10 +7,19 @@ import { Link } from "react-router-dom";
 const Neaarivels = () => {
   const scrollReff = useRef(null);
 
+<<<<<<< HEAD
   const [isDragging, setIsdragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(false);
   const [scrollRight, setScrollRight] = useState(true);
+=======
+  // const [isDragging,setIsdragging] = useState(false);
+  // const [startX,setStartX] = useState(0);
+  // const [scrollleft,setScrolleft] = useState(false)
+  const [cancrollLeft,setcanScrollLeft] = useState(false);
+  const [canscrollRight,cansetScrollRight] = useState(true);
+
+>>>>>>> 02afe7e742efa48cbf3d225807b277d6fe697d0a
 
   const newArrival = [
     {
@@ -92,6 +101,7 @@ const Neaarivels = () => {
     },
   ];
 
+<<<<<<< HEAD
   const isMouseDoun = (e) => {
     setStartX(e.pageX - scrollReff.current.offsetLeft);
     setIsdragging(true);
@@ -105,6 +115,27 @@ const Neaarivels = () => {
     const walk = x - startX;
     // scrollReff.current.offsetLeft = scrollLeft-walk;
   };
+=======
+const ScroLL = (directionm)=> {
+  const scroAmount = directionm === "left" ? -300 : 300;
+  let hh = scrollReff.current.scrollBy({left:scroAmount, behaviour:"smooth"})
+console.log("aeroorei",hh);
+}
+
+const updateButton = ()=>{
+  const container = scrollReff.current;
+  if(container){
+    const leftScroll = container.scrollLeft;
+    const rightScroll = container.scrollWidth > leftScroll + container.clientWidth;
+    setcanScrollLeft(leftScroll > 0);
+    cansetScrollRight(rightScroll)
+  }
+  // console.log({
+  //   scrollLeft:container.scrollLeft,
+  //   cllintWidth:container.clientWidth,
+  // });  
+}
+>>>>>>> 02afe7e742efa48cbf3d225807b277d6fe697d0a
 
   const isMouLeaveOrUp = () => {
     setIsdragging(false)
@@ -113,6 +144,7 @@ const Neaarivels = () => {
 
   const updateButton = () => {
     const container = scrollReff.current;
+<<<<<<< HEAD
     // console.log({
     //   scrollLeft: container.scrollLeft,
     //   cllintWidth: container.clientWidth,
@@ -125,6 +157,11 @@ const Neaarivels = () => {
       container.addEventListener("scroll", updateButton);
       updateButton();
       return ()=> container.removeEventListener("scroll",updateButton)
+=======
+    if(container){
+      container.addEventListener("scroll",updateButton);
+      // updateButton();
+>>>>>>> 02afe7e742efa48cbf3d225807b277d6fe697d0a
     }
   });
   return (
@@ -137,10 +174,10 @@ const Neaarivels = () => {
         </p>
 
         <div className="absolute right-0 bottom-[-30px] flex space-x-2">
-          <button className="p-2 rounded border bg-white text-black">
+          <button onClick={()=> ScroLL("left")} disabled={!setcanScrollLeft} className={`p-2 rounded border ${cancrollLeft ? "bg-white text-black" : "bg-gray-200 text-gray-800 cursor-not-allowed"}`}>
             <FiChevronLeft className="text-2xl" />
           </button>
-          <button className="p-2 rounded border bg-white text-black">
+          <button onClick={()=> ScroLL("right")} disabled={!cansetScrollRight} className={`p-2 rounded border ${canscrollRight ? "bg-white text-black" : "bg-gray-200 text-gray-800 cursor-not-allowed"}`}>
             <FiChevronRight className="text-2xl" />
           </button>
         </div>
@@ -160,7 +197,7 @@ const Neaarivels = () => {
               key={product._id}
               className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative"
             >
-              <img
+              <img 
                 src={product.images[0]?.url}
                 alt={product.images[0]?.altText || product.name}
                 draggable="false"
