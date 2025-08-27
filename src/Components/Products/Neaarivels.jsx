@@ -7,19 +7,17 @@ import { Link } from "react-router-dom";
 const Neaarivels = () => {
   const scrollReff = useRef(null);
 
-<<<<<<< HEAD
+
   const [isDragging, setIsdragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(false);
   const [scrollRight, setScrollRight] = useState(true);
-=======
+
   // const [isDragging,setIsdragging] = useState(false);
   // const [startX,setStartX] = useState(0);
   // const [scrollleft,setScrolleft] = useState(false)
   const [cancrollLeft,setcanScrollLeft] = useState(false);
   const [canscrollRight,cansetScrollRight] = useState(true);
-
->>>>>>> 02afe7e742efa48cbf3d225807b277d6fe697d0a
 
   const newArrival = [
     {
@@ -101,7 +99,7 @@ const Neaarivels = () => {
     },
   ];
 
-<<<<<<< HEAD
+
   const isMouseDoun = (e) => {
     setStartX(e.pageX - scrollReff.current.offsetLeft);
     setIsdragging(true);
@@ -115,7 +113,7 @@ const Neaarivels = () => {
     const walk = x - startX;
     // scrollReff.current.offsetLeft = scrollLeft-walk;
   };
-=======
+
 const ScroLL = (directionm)=> {
   const scroAmount = directionm === "left" ? -300 : 300;
   let hh = scrollReff.current.scrollBy({left:scroAmount, behaviour:"smooth"})
@@ -135,21 +133,20 @@ const updateButton = ()=>{
   //   cllintWidth:container.clientWidth,
   // });  
 }
->>>>>>> 02afe7e742efa48cbf3d225807b277d6fe697d0a
 
   const isMouLeaveOrUp = () => {
     setIsdragging(false)
   };
 
 
-  const updateButton = () => {
-    const container = scrollReff.current;
-<<<<<<< HEAD
-    // console.log({
-    //   scrollLeft: container.scrollLeft,
-    //   cllintWidth: container.clientWidth,
-    // });
-  };
+  // const updateButton = () => {
+  //   const container = scrollReff.current;
+
+  //   // console.log({
+  //   //   scrollLeft: container.scrollLeft,
+  //   //   cllintWidth: container.clientWidth,
+  //   // });
+  // };
 
   useEffect(() => {
     const container = scrollReff.current;
@@ -157,13 +154,14 @@ const updateButton = ()=>{
       container.addEventListener("scroll", updateButton);
       updateButton();
       return ()=> container.removeEventListener("scroll",updateButton)
-=======
+
     if(container){
       container.addEventListener("scroll",updateButton);
       // updateButton();
->>>>>>> 02afe7e742efa48cbf3d225807b277d6fe697d0a
     }
+  }
   });
+  
   return (
     <section>
       <div className="container mx-auto text-center mb-10 relative">
