@@ -59,7 +59,7 @@ const Navbar = () => {
 
         {/* right side */}
         <div className="flex items-center space-x-4">
-          <Link to="/profile" className="hover:text-black">
+          <Link to="/login" className="hover:text-black">
             <HiOutlineUser className="w-6 h-6 text-gray-700" />
           </Link>
           <button
@@ -73,7 +73,7 @@ const Navbar = () => {
           </button>
 
           {/* searchbar */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden text-center mt-5">
             <Searchbar />
           </div>
           <button onClick={toggleMobileDrawer} className="md:hidden">

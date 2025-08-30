@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import womenscollection from "../../assets/womens-collection.webp";
 import menscollection from "../../assets/mens-collection.webp";
 import {toast} from "sonner";
+import ProductGrid from "./ProductGrid";
 const ProductDetails = () => {
   const [mainImag, setMainImage] = useState("");
   const [selectSize, setSelectSize] = useState("");
@@ -30,6 +31,53 @@ const ProductDetails = () => {
       },
     ],
   };
+
+  const similarProduct = [
+    {
+      _id:1,
+      name:"product 1",
+      price:100,
+      images:[
+        {
+          url:menscollection,
+          altText:"product 1"
+        }
+      ]
+    },
+     {
+      _id:2,
+      name:"product 1",
+      price:100,
+      images:[
+        {
+          url:womenscollection,
+          altText:"product 2"
+        }
+      ]
+    },
+     {
+      _id:3,
+      name:"product 1",
+      price:100,
+      images:[
+        {
+          url:menscollection,
+          altText:"product 3"
+        }
+      ]
+    },
+     {
+      _id:4,
+      name:"product 1",
+      price:100,
+      images:[
+        {
+          url:menscollection,
+          altText:"product 4"
+        }
+      ]
+    },
+  ]
   // useEffect(()=>{
   //   if(selectedProduct.images.length > 0){
   //     setMainImage(selectedProduct.images[0].url)
@@ -61,6 +109,8 @@ const ProductDetails = () => {
         duration:3000
       })
         setIsDisable(false)
+        setSelectColor("");
+        setSelectSize("");
     },5000)
   }
 
@@ -195,6 +245,10 @@ const ProductDetails = () => {
               </table>
             </div>
           </div>
+        </div>
+        <div className="mt-20">
+            <h2 className="text-2xl text-center font-medium mb-4">You May Also Like</h2>
+            <ProductGrid produts={similarProduct}/>
         </div>
       </div>
     </div>
