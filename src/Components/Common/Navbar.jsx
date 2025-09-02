@@ -24,15 +24,15 @@ const Navbar = () => {
     <>
       <nav className="container mx-auto flex items-center justify-between px-4 py-4">
         {/* logo */}
-        <div>
-          <Link to="/" className="font-medium text-2xl">
+        <div className="cursor-pointer">
+          <Link to="/" className="font-medium text-2xl cursor-pointer">
             Rabbit
           </Link>
         </div>
 
         <div className="hidden md:flex space-x-6">
           <Link
-            to="#"
+            to="/collections/All"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
             Men
@@ -59,7 +59,7 @@ const Navbar = () => {
 
         {/* right side */}
         <div className="flex items-center space-x-4">
-          <Link to="/login" className="hover:text-black">
+          <Link to="/profile" className="hover:text-black">
             <HiOutlineUser className="w-6 h-6 text-gray-700" />
           </Link>
           <button
@@ -99,7 +99,7 @@ const Navbar = () => {
           <h1 className="text-xl font-semibold mb-4">Menu</h1>
           <nav>
             <Link
-              to="#"
+              to="/collections/All"
               onClick={toggleMobileDrawer}
               className="text-gray-500 block hover:text-gray-700"
             >
